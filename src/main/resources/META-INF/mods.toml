@@ -11,6 +11,8 @@ logoFile="borealis_icon.png"
 authors="ILIKEPIEFOO2"
 description='''
 FTBQ Integration for the mod Borealis.
+Adds the ability to view Quest Progression Data
+for each online player.
 '''
 
 [[dependencies.ftbqborealis]]
