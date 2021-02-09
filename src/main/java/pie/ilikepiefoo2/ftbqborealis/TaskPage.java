@@ -5,7 +5,6 @@ import com.feed_the_beast.ftbquests.quest.Quest;
 import com.feed_the_beast.ftbquests.quest.QuestFile;
 import com.feed_the_beast.ftbquests.quest.task.Task;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import pie.ilikepiefoo2.borealis.integration.kubejs.KubeJSHomePage;
 import pie.ilikepiefoo2.borealis.tag.Tag;
 
 import java.util.UUID;
@@ -28,7 +27,7 @@ public class TaskPage extends QuestPage {
         addQuestTag(body, player, playerUUID, chapter, quest);
         addTaskTag(body, player, playerUUID, chapter, quest, task);
         body.h1("Task: "+getTitle(task));
-        body.h2("Task Type: ").a(task.getType().getTypeForNBT(), KubeJSHomePage.homeURL+task.getClass().getName());
+        body.h2("Task Type: ").a(task.getType().getTypeForNBT(), FTBQuestsHomePage.homeURL+task.getClass().getName());
         body.br();
         body.text("This page looks quite empty due to how Task Types are handled. Each are handled in a special way requiring hardcoding of each type.");
     }

@@ -3,7 +3,6 @@ package pie.ilikepiefoo2.ftbqborealis;
 import com.feed_the_beast.ftbquests.quest.*;
 import com.feed_the_beast.ftbquests.quest.task.Task;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import pie.ilikepiefoo2.borealis.integration.kubejs.KubeJSHomePage;
 import pie.ilikepiefoo2.borealis.tag.Tag;
 
 import java.util.UUID;
@@ -67,7 +66,7 @@ public class QuestPage extends ChapterPage {
         }else{
             previous.td().text(getTitle(dependant));
         }
-        previous.td().a(dependant.getObjectType().id, KubeJSHomePage.homeURL+dependant.getObjectType().getDeclaringClass().getName());
+        previous.td().a(dependant.getObjectType().id, FTBQuestsHomePage.homeURL+dependant.getObjectType().getDeclaringClass().getName());
         appendProgress(previous.td(),playerData,dependant);
     }
 
