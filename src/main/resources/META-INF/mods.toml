@@ -1,0 +1,35 @@
+modLoader="javafml"
+loaderVersion="[35,)"
+issueTrackerURL = "https://github.com/Hunter19823/Borealis/issues"
+license = "All Rights Reserved"
+
+[[mods]]
+modId="ftbqborealis"
+version="${file.jarVersion}"
+displayName="FTBQBorealis"
+logoFile="borealis_icon.png"
+authors="ILIKEPIEFOO2"
+description='''
+FTBQ Integration for the mod Borealis.
+'''
+
+[[dependencies.ftbqborealis]]
+           modId="forge"
+           mandatory = true
+           versionRange = "[35,)"
+           ordering = "NONE"
+           side="BOTH"
+
+[[dependencies.ftbqborealis]]
+           modId="borealis"
+           mandatory = true
+           versionRange = "[1,)"
+           ordering = "AFTER"
+           side="BOTH"
+
+[[dependencies.ftbqborealis]]
+           modId="ftbquests"
+           mandatory = true
+           versionRange = "[1604.1,)"
+           ordering = "NONE"
+           side="BOTH"
