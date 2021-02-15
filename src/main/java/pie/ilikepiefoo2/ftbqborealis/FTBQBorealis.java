@@ -1,10 +1,12 @@
 package pie.ilikepiefoo2.ftbqborealis;
 
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import pie.ilikepiefoo2.borealis.Borealis;
 
 @Mod("ftbqborealis")
 public class FTBQBorealis {
@@ -18,5 +20,11 @@ public class FTBQBorealis {
         MinecraftForge.EVENT_BUS.addListener(FTBQuestsEventHandler::onPageEvent);
         MinecraftForge.EVENT_BUS.addListener(FTBQuestsEventHandler::onPlayerJoin);
         MinecraftForge.EVENT_BUS.addListener(FTBQuestsEventHandler::onPlayerLeave);
+
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ConfigHandler.COMMON_SPEC);
+
+        FMLJavaModLoadingContext.get().getModEventBus().addListener((ModConfig.Reloading e) -> ConfigHandler.onConfigLoad());
+        FMLJavaModLoadingContext.get().getModEventBus().addListener((ModConfig.Loading e) -> ConfigHandler.onConfigLoad());
+
     }
 }

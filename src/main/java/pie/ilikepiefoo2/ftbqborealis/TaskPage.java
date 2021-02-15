@@ -5,6 +5,7 @@ import com.feed_the_beast.ftbquests.quest.Quest;
 import com.feed_the_beast.ftbquests.quest.QuestFile;
 import com.feed_the_beast.ftbquests.quest.task.Task;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import pie.ilikepiefoo2.borealis.page.PageType;
 import pie.ilikepiefoo2.borealis.tag.Tag;
 
 import java.util.UUID;
@@ -15,6 +16,12 @@ public class TaskPage extends QuestPage {
     {
         super(playerUUID, entity, questFile, chapter, quest);
         this.task = task;
+    }
+
+    @Override
+    public PageType getPageType()
+    {
+        return ConfigHandler.COMMON.ftbqBorealisPage.get();
     }
 
 

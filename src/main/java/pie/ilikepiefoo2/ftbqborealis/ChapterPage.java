@@ -5,6 +5,7 @@ import com.feed_the_beast.ftbquests.quest.PlayerData;
 import com.feed_the_beast.ftbquests.quest.Quest;
 import com.feed_the_beast.ftbquests.quest.QuestFile;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import pie.ilikepiefoo2.borealis.page.PageType;
 import pie.ilikepiefoo2.borealis.tag.Tag;
 
 import java.util.UUID;
@@ -19,13 +20,19 @@ public class ChapterPage extends ChaptersPage {
     }
 
     @Override
+    public PageType getPageType()
+    {
+        return ConfigHandler.COMMON.ftbqBorealisPage.get() == PageType.ENABLED ? ConfigHandler.COMMON.questsPage.get() : PageType.DISABLED;
+    }
+
+    @Override
     public void body(Tag body)
     {
         addHomePageTag(body);
         addChaptersTag(body,player,playerUUID);
         addChapterTag(body,player,playerUUID,chapter);
-        body.h3("Title: "+getTitle(chapter));
-        body.text("Subtitle: "+toHTML(chapter.subtitle));
+        body.h2("Title: "+getTitle(chapter));
+        body.h3("Subtitle: "+toHTML(chapter.subtitle));
         body.br();
 
         body.h1("").a("Quests","#quests");
@@ -37,8 +44,17 @@ public class ChapterPage extends ChaptersPage {
         topRow.th().text("Status");
         topRow.th().text("Subtext");
 
+        boolean includeHiddenQuests = ConfigHandler.COMMON.includeHiddenQuests.get();
+        boolean hideNotStartedQuests = ConfigHandler.COMMON.hideNotStartedQuests.get();
         chapter.quests.listIterator().forEachRemaining(
-                quest -> addQuest(questTable.tr(), chapter, playerData, playerUUID, quest)
+            quest ->
+            {
+                if(quest.isVisible(playerData) || includeHiddenQuests) {
+                    if (playerData.isStarted(quest) || !hideNotStartedQuests) {
+                        addQuest(questTable.tr(), chapter, playerData, playerUUID, quest);
+                    }
+                }
+            }
         );
         //FTBQuestsHomePage.homeURL+playerUUID.toString()+"/"+chapter.id+"/";
     }

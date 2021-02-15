@@ -3,17 +3,27 @@ package pie.ilikepiefoo2.ftbqborealis;
 import com.feed_the_beast.ftbquests.quest.*;
 import com.feed_the_beast.ftbquests.quest.task.Task;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import pie.ilikepiefoo2.borealis.page.PageType;
 import pie.ilikepiefoo2.borealis.tag.Tag;
 
 import java.util.UUID;
 
 public class QuestPage extends ChapterPage {
     protected final Quest quest;
+
     public QuestPage(UUID playerUUID, ServerPlayerEntity entity, QuestFile questFile, Chapter chapter, Quest quest)
     {
         super(playerUUID, entity, questFile, chapter);
         this.quest = quest;
     }
+
+    @Override
+    public PageType getPageType()
+    {
+        return ConfigHandler.COMMON.ftbqBorealisPage.get();
+    }
+
+
     @Override
     public void body(Tag body){
         addHomePageTag(body);
@@ -22,6 +32,7 @@ public class QuestPage extends ChapterPage {
         addQuestTag(body,player,playerUUID,chapter,quest);
         body.h3("Title: "+getTitle(chapter));
         body.text("Subtitle: "+quest.subtitle);
+        body.br();
         body.text("Description: "+toHTML(quest.description));
         body.br();
 

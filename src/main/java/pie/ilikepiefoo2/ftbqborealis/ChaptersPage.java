@@ -5,6 +5,7 @@ import com.feed_the_beast.ftbquests.quest.PlayerData;
 import com.feed_the_beast.ftbquests.quest.QuestFile;
 import com.feed_the_beast.ftbquests.quest.QuestObject;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import pie.ilikepiefoo2.borealis.page.PageType;
 import pie.ilikepiefoo2.borealis.tag.Tag;
 
 import java.util.List;
@@ -24,6 +25,12 @@ public class ChaptersPage extends FTBQuestsHomePage {
     }
 
     @Override
+    public PageType getPageType()
+    {
+        return ConfigHandler.COMMON.ftbqBorealisPage.get() == PageType.ENABLED ? ConfigHandler.COMMON.chaptersPage.get() : PageType.DISABLED;
+    }
+
+    @Override
     public void body(Tag body)
     {
         addHomePageTag(body);
@@ -34,9 +41,15 @@ public class ChaptersPage extends FTBQuestsHomePage {
         topRow.th().text("Chapter Title");
         topRow.th().text("Status");
         topRow.th().text("Subtitle");
+        boolean includeHiddenChapters = ConfigHandler.COMMON.includeHiddenChapters.get();
+        boolean hideNotStartedChapters = ConfigHandler.COMMON.hideNotStartedChapters.get();
         questFile.chapters.listIterator().forEachRemaining(
                 chapter -> {
-                    addChapter(chapterTable.tr(),chapter,playerData, playerUUID);
+                    if(chapter.isVisible(playerData) || (includeHiddenChapters)) {
+                        if(playerData.isStarted(chapter) || !hideNotStartedChapters) {
+                            addChapter(chapterTable.tr(), chapter, playerData, playerUUID);
+                        }
+                    }
                 }
         );
     }

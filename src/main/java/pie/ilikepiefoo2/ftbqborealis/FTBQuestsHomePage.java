@@ -5,6 +5,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.server.MinecraftServer;
 import pie.ilikepiefoo2.borealis.Borealis;
 import pie.ilikepiefoo2.borealis.page.HTTPWebPage;
+import pie.ilikepiefoo2.borealis.page.PageType;
 import pie.ilikepiefoo2.borealis.tag.Tag;
 
 public class FTBQuestsHomePage extends HTTPWebPage {
@@ -18,6 +19,7 @@ public class FTBQuestsHomePage extends HTTPWebPage {
     }
 
     private static FTBQuestsHomePage instance;
+
     public static FTBQuestsHomePage getInstance()
     {
         if(instance == null || server == null)
@@ -30,6 +32,12 @@ public class FTBQuestsHomePage extends HTTPWebPage {
     public MinecraftServer getServer()
     {
         return server;
+    }
+
+    @Override
+    public PageType getPageType()
+    {
+        return ConfigHandler.COMMON.ftbqBorealisPage.get();
     }
 
     @Override
